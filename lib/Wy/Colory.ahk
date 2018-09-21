@@ -4,8 +4,8 @@
 
 class Colory {
 	/*
-		Class: Colory
-	Hand	ling colors
+	Class: Colory
+	Handling colors
 		
 	Adapted from Color (https://msdn.microsoft.com/en-us/library/gg427627.aspx)
 		
@@ -24,13 +24,13 @@ class Colory {
 	
 	; ##################### Start of Properties ############################################################################
 	debug[] {
-		/* ------------------------------------------------------------------------------- 
-		Property: debug [get/set]
-		Debug flag for debugging the object
+	/* ------------------------------------------------------------------------------- 
+	Property: debug [get/set]
+	Debug flag for debugging the object
 			
-		Value:
-		flag - *true* or *false*
-		*/
+	Value:
+	flag - *true* or *false*
+	*/
 		get {
 			return this._debug
 		}
@@ -41,10 +41,10 @@ class Colory {
 		}
 	}
 	hex[] {
-		/* ------------------------------------------------------------------------------- 
-		Property: hex [get]
-		Get hex-color value
-		*/
+	/* ------------------------------------------------------------------------------- 
+	Property: hex [get]
+	Get hex-color value
+	*/
 		get {
 			return format("0x{1:02x}{2:02x}{3:02x}", this.r, this.g, this.b)
 		}

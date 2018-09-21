@@ -7,13 +7,11 @@
 
 class Mony {
 	/* 
-		Class: Mony
-		Handling a single Monitor, identified via its monitor ID
-		
-		Authors:
-		<hoppfrosch at hoppfrosch@gmx.de>: Original
-		
-		About: MIT-License
+	Class: Mony
+	Handling a single Monitor, identified via its monitor ID
+	
+	Authors:
+	<hoppfrosch at hoppfrosch@gmx.de>: Original
 	*/
 	_debug := 0
 	_version := "0.1.0"
@@ -23,16 +21,16 @@ class Mony {
 	
 	; ===== Properties ===============================================================
 	boundary[] {
-		/* -------------------------------------------------------------------------------
-			Property: boundary [get]
-			Get the boundaries of a monitor in Pixel (related to Virtual Screen) as a <rectangle at http://hoppfrosch.github.io/AHK_Windy/files/Recty-ahk.html>.
-			
-			Remarks:
-			* There is no setter available, since this is a constant system property
-			
-			See Also: 
-			<virtualScreenSize [get]>
-		*/
+	/* -------------------------------------------------------------------------------
+	Property: boundary [get]
+	Get the boundaries of a monitor in Pixel (related to Virtual Screen) as a <Wy.Recty>.
+	
+	Remarks:
+	* There is no setter available, since this is a constant system property
+	
+	See Also: 
+	<virtualScreenSize [get]>
+	*/
 		get {
 			mon := this.id
 			MonitorGet(mon, sizeLeft, sizeTop, sizeRight, sizeBottom)
@@ -42,13 +40,13 @@ class Mony {
 		}
 	}
 	center[] {
-		/* -------------------------------------------------------------------------------
-			Property: center [get]
-			Get the center coordinates of a monitor in Pixel (related to Virtual Screen)  as a <point at http://hoppfrosch.github.io/AHK_Windy/files/Pointy-ahk.html>.
-			
-			Remarks:
-			* There is no setter available, since this is a constant system property
-		*/	
+	/* -------------------------------------------------------------------------------
+	Property: center [get]
+	Get the center coordinates of a monitor in Pixel (related to Virtual Screen)  as a <Wy.Pointy>.
+		
+	Remarks:
+	* There is no setter available, since this is a constant system property
+	*/	
 		get {
 			boundary := this.boundary
 			xcenter := floor(boundary.x+(boundary.width-boundary.x)/2)
@@ -59,13 +57,13 @@ class Mony {
 		}
 	}
 	debug[] {
-		/* -------------------------------------------------------------------------------
-			Property: debug [get/set]
-			Debug flag for debugging the object
-			
-			Value:
-			flag - *true* or *false*
-		*/
+	/* -------------------------------------------------------------------------------
+	Property: debug [get/set]
+	Debug flag for debugging the object
+	
+	Value:
+	flag - *true* or *false*
+	*/
 		get {
 			return this._debug
 		}
@@ -94,10 +92,10 @@ class Mony {
 		}
 	}
 	id[] {
-		/* -------------------------------------------------------------------------------
-			Property: id [get/set]
-			ID of the monitor
-		*/
+	/* -------------------------------------------------------------------------------
+	Property: id [get/set]
+	ID of the monitor
+	*/
 		get {
 			return this._id
 		}
@@ -267,13 +265,13 @@ class Mony {
 	scale[ monDest := 1 ] {
 	/* -------------------------------------------------------------------------------
 	Property:  scale [get]
-	Determines the scaling factors in x/y-direction for coordinates when moving to monDest as a <point at http://hoppfrosch.github.io/AHK_Windy/files/Pointy-ahk.html>.
+	Determines the scaling factors in x/y-direction for coordinates when moving to monDest as a <Wy.Pointy>.
 			
 	Parameters:
 	monDest - Destination Monitor number (*Required*, Default := 1)
 			
 	Returns:
-	Scaling factor for x/y -coordinates as a <point at http://hoppfrosch.github.io/AHK_Windy/files/Pointy-ahk.html>.
+	Scaling factor for x/y -coordinates as a <Wy.Pointy>.
 
 	Remarks:
 	* There is no setter available, since this is a constant system property
@@ -298,7 +296,7 @@ class Mony {
 	monDest - Destination Monitor number (*Required*, Default := 1)
 			
 	Returns:
-	Scaling factor for x-coordinates as a <point at http://hoppfrosch.github.io/AHK_Windy/files/Pointy-ahk.html>.
+	Scaling factor for x-coordinates as a <Wy.Pointy>.
 
 	Remarks:
 	* There is no setter available, since this is a constant system property
@@ -344,7 +342,7 @@ class Mony {
 	size[] {
 	/* ---------------------------------------------------------------------------------------
 	Property:  size [get]
-	Get the size of a monitor in Pixel as a <rectangle at http://hoppfrosch.github.io/AHK_Windy/files/GdipC.Rect-ahk.html>.
+	Get the size of a monitor in Pixel as a <Wy.Recty>.
 			
 	Remarks:
 	* There is no setter available, since this is a constant system property
@@ -361,13 +359,13 @@ class Mony {
 		}
 	}
 	version[] {
-		/* -------------------------------------------------------------------------------
-			Property: version [get]
-			Version of the class
-			
-			Remarks:
-			* There is no setter available, since this is a constant system property
-		*/
+	/* -------------------------------------------------------------------------------
+	Property: version [get]
+	Version of the class
+	
+	Remarks:
+	* There is no setter available, since this is a constant system property
+	*/
 		get {
 			return this._version
 		}
@@ -375,7 +373,7 @@ class Mony {
 	virtualScreenSize[] {
 	/* ---------------------------------------------------------------------------------------
 	Property: virtualScreenSize [get]
-	Get the size of virtual screen in Pixel as a <rectangle at http://hoppfrosch.github.io/AHK_Windy/files/Recty-ahk.html>.
+	Get the size of virtual screen in Pixel as a <Wy.Recty>.
 	
 	The virtual screen is the bounding rectangle of all display monitors
 	
@@ -393,12 +391,12 @@ class Mony {
 		}
 	}
 	workingArea[] {
-/* -------------------------------------------------------------------------------
+	/* -------------------------------------------------------------------------------
 	Property:  workingArea [get]
-	Get the working area of a monitor in Pixel as a <rectangle at http://hoppfrosch.github.io/AHK_Windy/files/Recty-ahk.html>.
+	Get the working area of a monitor in Pixel as a <Wy.Recty>.
 	
 	Same as <size [get]>, except the area is reduced to exclude the area occupied by the taskbar and other registered desktop toolbars.
-	The working area is given as a <rectangle at http://hoppfrosch.github.io/AHK_Windy/files/GdipC.Rect-ahk.html>.
+	The working area is given as a <Wy.Recty>.
 		
 	Remarks:
 	* There is no setter available, since this is a constant system property
@@ -419,13 +417,13 @@ class Mony {
 	/* -------------------------------------------------------------------------------
 	Method:	coordDisplayToVirtualScreen
 	Transforms coordinates relative to given monitor into absolute (virtual) coordinates. 
-	Returns object of type <point at http://hoppfrosch.github.io/AHK_Windy/files/Pointy-ahk.html>.
+	Returns object of type <Wy.Pointy>.
 	
 	Parameters:
 	x,y - relative coordinates on given monitor
 	
 	Returns:
-	<point at http://hoppfrosch.github.io/AHK_Windy/files/Pointy-ahk.html>.
+	<Wy.Pointy>.
 	*/
 	coordDisplayToVirtualScreen( x := 0, y := 0) {
 		dbgOut(">[" A_ThisFunc "(id= " this.id ",x=" x ",y=" y ")" , this.debug)
@@ -436,13 +434,13 @@ class Mony {
 	}
 	
 	/* -------------------------------------------------------------------------------
-		method: identify
-		Identify monitor by displaying the monitor id
-		
-		Parameters:
-		disptime - time to display the monitor id (*Optional*, Default: 1500[ms])
-		txtcolor - color of the displayed monitor id (*Optional*, Default: "000000")
-		txtsize - size of the displayed monitor id (*Optional*, Default: 300[px])
+	method: identify
+	Identify monitor by displaying the monitor id
+	
+	Parameters:
+	disptime - time to display the monitor id (*Optional*, Default: 1500[ms])
+	txtcolor - color of the displayed monitor id (*Optional*, Default: "000000")
+	txtsize - size of the displayed monitor id (*Optional*, Default: 300[px])
 	*/
 	identify( disptime := 1500, txtcolor := "000000", txtsize := 300 ) {
 		dbgOut(">[" A_ThisFunc "([" this.id "], disptime := " disptime ", txtcolor := " txtcolor ", txtsize := " txtsize ")]" , this.debug)
@@ -465,7 +463,7 @@ class Mony {
 	x,y,w,h - position and width/height to be transformed into screen percents
 
 	Returns:
-	<rectangle at http://hoppfrosch.github.io/AHK_Windy/files/Recty-ahk.html> containing screen percents.
+	<Wy.Recty> containing screen percents.
 	*/	
     rectToPercent(rect) {
 		monBound := this.boundary
@@ -480,10 +478,10 @@ class Mony {
 	
 	; ===== Internal Methods =========================================================
 	/*! -------------------------------------------------------------------------------
-		method: __idHide
-		Helper function for <identify>: Hides the Id, shown with <__idShow> (*INTERNAL*)
-		
-		See Also: 
+	method: __idHide
+	Helper function for <identify>: Hides the Id, shown with <__idShow> (*INTERNAL*)
+	
+	See Also: 
 	<identify>, <__idShow>
 	*/
 	__idHide() {
@@ -492,17 +490,17 @@ class Mony {
 		return
 	}
 	/*! -------------------------------------------------------------------------------
-		method: __idShow
-		Helper function for <identify>: Identify monitor by displaying the monitor id, hidden via <__idHide> (*INTERNAL*)
+	method: __idShow
+	Helper function for <identify>: Identify monitor by displaying the monitor id, hidden via <__idHide> (*INTERNAL*)
+	
+	Parameters:
+	txtcolor - color of the displayed monitor id (*Optional*, Default: "000000")
+	txtsize - size of the displayed monitor id (*Optional*, Default: 300[px])
 		
-		Parameters:
-		txtcolor - color of the displayed monitor id (*Optional*, Default: "000000")
-		txtsize - size of the displayed monitor id (*Optional*, Default: 300[px])
+	Authors:
+	* Original: <Bkid at http://ahkscript.org/boards/viewtopic.php?f=6&t=3761&p=19836&hilit=Monitor#p19836>
 		
-		Authors:
-		* Original: <Bkid at http://ahkscript.org/boards/viewtopic.php?f=6&t=3761&p=19836&hilit=Monitor#p19836>
-		
-		See Also: 
+	See Also: 
 	<identify>, <__idHide>
 	*/
 	__idShow( txtcolor := "000000", txtsize := 300 ) {
@@ -521,12 +519,12 @@ class Mony {
 		return
 	}
 	/* -------------------------------------------------------------------------------
-		Constructor: __New
-		Constructor (*INTERNAL*)
+	Constructor: __New
+	Constructor (*INTERNAL*)
 		
-		Parameters:
-		_id - Monitor ID
-		_debug - Flag to enable debugging (Optional - Default: 0)
+	Parameters:
+	_id - Monitor ID
+	_debug - Flag to enable debugging (Optional - Default: 0)
 	*/  
 	__New(_id := 1, _debug := false) {
 		this._debug := _debug

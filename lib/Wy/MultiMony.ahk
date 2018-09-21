@@ -6,27 +6,24 @@
 
 class MultiMony {
 	/* ******************************************************************************************************************************************
-		Class: MultiMony
-		Handling Multiple Display-Monitor Environments
-		7
-		Authors:
+	Class: MultiMony
+	Handling Multiple Display-Monitor Environments
+	
+	Authors:
 	<hoppfrosch at hoppfrosch@gmx.de>: Original
-		
-		About: License
-		This program is free software. It comes without any warranty, to the extent permitted by applicable law. You can redistribute it and/or modify it under the terms of the Do What The Fuck You Want To Public License, Version 2, as published by Sam Hocevar. See <WTFPL at http://www.wtfpl.net/> for more details.
 	*/
 	_debug := 0
 	_version := "0.1.0"
 	
 	; ===== Properties ==============================================================
 	debug[] {
-		/* -------------------------------------------------------------------------------
-			Property: debug [get/set]
-			Debug flag for debugging the object
+	/* -------------------------------------------------------------------------------
+	Property: debug [get/set]
+	Debug flag for debugging the object
 			
-			Value:
-			flag - *true* or *false*
-		*/
+	Value:
+	flag - *true* or *false*
+	*/
 		get {
 			return this._debug
 		}
@@ -37,13 +34,13 @@ class MultiMony {
 		}
 	}
 	idPrimary[] {
-		/* ---------------------------------------------------------------------------------------
-			Property: idPrimary [get]
-			Get the ID of the primary monitor
-			
-			Remarks:
-			* There is no setter available, since this is a constant system property
-		*/
+	/* ---------------------------------------------------------------------------------------
+	Property: idPrimary [get]
+	Get the ID of the primary monitor
+	
+	Remarks:
+	* There is no setter available, since this is a constant system property
+	*/
 		get {
 			ret := MonitorGetPrimary()
 			dbgOut("=[" A_ThisFunc "([" this.id "]) -> (" ret ")]", this._debug)
@@ -51,25 +48,25 @@ class MultiMony {
 		}
 	}
 	idTaskbar[] {
-		/* ---------------------------------------------------------------------------------------
-			Property: idTaskbar [get]
-			Get the ID of the monitor where the taskbar is on (aka. primary monitor)
+	/* ---------------------------------------------------------------------------------------
+	Property: idTaskbar [get]
+	Get the ID of the monitor where the taskbar is on (aka. primary monitor)
 			
-			Remarks:
-			* There is no setter available, since this is a constant system property
-		*/
+	Remarks:
+	* There is no setter available, since this is a constant system property
+	*/
 		get {
 			return this.idPrimary
 		}
 	}
 	monitorsCount[] {
-		/* ---------------------------------------------------------------------------------------
-			Property: monitorsCount [get]
-			Number of available monitors.
-			
-			Remarks:
-			* There is no setter available, since this is a constant system property
-		*/
+	/* ---------------------------------------------------------------------------------------
+	Property: monitorsCount [get]
+	Number of available monitors.
+	
+	Remarks:
+	* There is no setter available, since this is a constant system property
+	*/
 		get {
 			CoordMode("Mouse","Screen")
 			mCnt := MonitorGetCount()
@@ -78,18 +75,18 @@ class MultiMony {
 		}
 	}
 	size[] {
-		/* ---------------------------------------------------------------------------------------
-			Property: size [get]
-			Get the size of virtual screen in Pixel as a <rectangle at http://hoppfrosch.github.io/AHK_Windy/files/Recty-ahk.html>.
-			
-			The virtual screen is the bounding rectangle of all display monitors
-			
-			Remarks:
-			* There is no setter available, since this is a constant system property
-			
-			See Also:
+	/* ---------------------------------------------------------------------------------------
+	Property: size [get]
+	Get the size of virtual screen in Pixel as a <Wy.Recty>.
+	
+	The virtual screen is the bounding rectangle of all display monitors
+	
+	Remarks:
+	* There is no setter available, since this is a constant system property
+	
+	See Also:
 	<virtualScreenSize [get]>
-		*/
+	*/
 		get {
 			rect := this.virtualScreenSize
 			dbgOut("=[" A_ThisFunc "()] -> (" rect.ToJSON() ")", this._debug)
@@ -97,30 +94,30 @@ class MultiMony {
 		}
 	}
 	version[] {
-		/* -------------------------------------------------------------------------------
-			Property: version [get]
-			Version of the class
-			
-			Remarks:
-			* There is no setter available, since this is a constant system property
-		*/
+	/* -------------------------------------------------------------------------------
+	Property: version [get]
+	Version of the class
+	
+	Remarks:
+	* There is no setter available, since this is a constant system property
+	*/
 		get {
 			return this._version
 		}
 	}
 	virtualScreenSize[] {
-		/* ---------------------------------------------------------------------------------------
-			Property: virtualScreenSize [get]
-			Get the size of virtual screen in Pixel as a <rectangle at http://hoppfrosch.github.io/AHK_Windy/files/Recty-ahk.html>.
+	/* ---------------------------------------------------------------------------------------
+	Property: virtualScreenSize [get]
+	Get the size of virtual screen in Pixel as a <Wy.Recty>.
+	
+	The virtual screen is the bounding rectangle of all display monitors
+	
+	Remarks:
+	* There is no setter available, since this is a constant system property
 			
-			The virtual screen is the bounding rectangle of all display monitors
-			
-			Remarks:
-			* There is no setter available, since this is a constant system property
-			
-			See Also:
+	See Also:
 	<size [get]>
-		*/
+	*/
 		get {
 			x := SysGet(76)
 			y := SysGet(77)
@@ -135,15 +132,15 @@ class MultiMony {
 	; ===== Methods ==================================================================
 	
 	/* -------------------------------------------------------------------------------
-		Method: 	coordDisplayToVirtualScreen
-		Transforms coordinates relative to given monitor into absolute (virtual) coordinates. Returns object of type <point at http://hoppfrosch.github.io/AHK_Windy/files/Pointy-ahk.html>
+	Method: 	coordDisplayToVirtualScreen
+	Transforms coordinates relative to given monitor into absolute (virtual) coordinates. Returns object of type <Wy.Pointy>
+	
+	Parameters:
+	id - id of the monitor
+	x,y - relative coordinates on given monitor
 		
-		Parameters:
-		id - id of the monitor
-		x,y - relative coordinates on given monitor
-		
-		Returns:
-	<point at http://hoppfrosch.github.io/AHK_Windy/files/Pointy-ahk.html>.
+	Returns:
+	<Wy.Pointy>.
 	*/
 	coordDisplayToVirtualScreen( id := 1, x := 0, y := 0) {
 		dbgOut(">[" A_ThisFunc "(id:=" id ", x:=" x ", y:=" y ")]", this._debug)
@@ -156,14 +153,14 @@ class MultiMony {
 		return pt
 	}
 	/* -------------------------------------------------------------------------------
-		Method: 	coordVirtualScreenToDisplay
-		Transforms absolute coordinates from Virtual Screen into coordinates relative to screen.
-		
-		Parameters:
-		x,y - absolute coordinates
-		
-		Returns:
-		Object containing relative coordinates and monitorID
+	Method: 	coordVirtualScreenToDisplay
+	Transforms absolute coordinates from Virtual Screen into coordinates relative to screen.
+	
+	Parameters:
+	x,y - absolute coordinates
+	
+	Returns:
+	Object containing relative coordinates as <Wy.Pointy> and monitorID
 	*/
 	coordVirtualScreenToDisplay(x,y) {
 		ret := Object()
@@ -179,19 +176,19 @@ class MultiMony {
 		return ret
 	}
 	/* -------------------------------------------------------------------------------
-		Method:  hmonFromCoord
-		Get the handle of the monitor containing the specified x and y coordinates.
+	Method:  hmonFromCoord
+	Get the handle of the monitor containing the specified x and y coordinates.
 		
-		Parameters:
-		x,y - Coordinates
+	Parameters:
+	x,y - Coordinates
 		
-		Returns:
-		Handle of the monitor at specified coordinates
+	Returns:
+	Handle of the monitor at specified coordinates
 		
-		Authors:
-		* Original: <just me at http://ahkscript.org/boards/viewtopic.php?f=6&t=4606>
+	Authors:
+	* Original: <just me at http://ahkscript.org/boards/viewtopic.php?f=6&t=4606>
 		
-		See Also:
+	See Also:
 	<idFromCoord>
 	*/
 	hmonFromCoord(x := "", y := "") {
@@ -208,19 +205,19 @@ class MultiMony {
 		return hmon
 	}
 	/* -------------------------------------------------------------------------------
-		Method:  hmonFromHwnd
-		Get the handle of the monitor containing the swindow with given window handle.
-		
-		Parameters:
-		hwnd - Window Handle
-		
-		Returns:
-		Handle of the monitor containing the specified window
-		
-		Authors:
-		* Original: <just me at http://ahkscript.org/boards/viewtopic.php?f=6&t=4606>
-		
-		See Also:
+	Method:  hmonFromHwnd
+	Get the handle of the monitor containing the swindow with given window handle.
+	
+	Parameters:
+	hwnd - Window Handle
+	
+	Returns:
+	Handle of the monitor containing the specified window
+	
+	Authors:
+	* Original: <just me at http://ahkscript.org/boards/viewtopic.php?f=6&t=4606>
+	
+	See Also:
 	<idFromHwnd>
 	*/
 	hmonFromHwnd(hwnd) {
@@ -229,16 +226,16 @@ class MultiMony {
 		return hmon
 	}
 	/* -------------------------------------------------------------------------------
-		Method:  hmonFromId
-		Get the handle of the monitor from monitor id.
-		
-		Parameters:
-		id - Monitor ID
-		
-		Returns:
-		Monitor Handle
-		
-		See Also:
+	Method:  hmonFromId
+	Get the handle of the monitor from monitor id.
+	
+	Parameters:
+	id - Monitor ID
+	
+	Returns:
+	Monitor Handle
+	
+	See Also:
 	<idFromHmon>
 	*/
 	hmonFromid(id := 1) {
@@ -248,19 +245,19 @@ class MultiMony {
 		return hmon
 	}
 	/* -------------------------------------------------------------------------------
-		Method: hmonFromRect
-		Get the handle of the monitor that has the largest area of intersection with a specified rectangle.
-		
-		Parameters:
-		x,y, w,h - rectangle
-		
-		Returns:
-		Monitor Handle
-		
-		Authors:
-		* Original: <just me at http://ahkscript.org/boards/viewtopic.php?f=6&t=4606>
-		
-		See Also:
+	Method: hmonFromRect
+	Get the handle of the monitor that has the largest area of intersection with a specified rectangle.
+	
+	Parameters:
+	x,y, w,h - rectangle
+	
+	Returns:
+	Monitor Handle
+	
+	Authors:
+	* Original: <just me at http://ahkscript.org/boards/viewtopic.php?f=6&t=4606>
+	
+	See Also:
 	<idFromRect>
 	*/
 	hmonFromRect(x, y, w, h) {
@@ -274,13 +271,13 @@ class MultiMony {
 		return hmon
 	}
 	/* -------------------------------------------------------------------------------
-		method: identify
-		Identify monitors by displaying the monitor id on each monitor
-		
-		Parameters:
-		disptime - time to display the monitor id (*Optional*, Default: 1500[ms])
-		txtcolor - color of the displayed monitor id (*Optional*, Default: "000000")
-		txtsize - size of the displayed monitor id (*Optional*, Default: 300[px])
+	method: identify
+	Identify monitors by displaying the monitor id on each monitor
+	
+	Parameters:
+	disptime - time to display the monitor id (*Optional*, Default: 1500[ms])
+	txtcolor - color of the displayed monitor id (*Optional*, Default: "000000")
+	txtsize - size of the displayed monitor id (*Optional*, Default: 300[px])
 	*/
 	identify(disptime := 1500, txtcolor := "000000", txtsize := 300) {
 		dbgOut(">[" A_ThisFunc "(disptime := " disptime ", txtcolor := " txtcolor ", txtsize := " txtsize ")]", this._debug)
@@ -298,17 +295,17 @@ class MultiMony {
 		return
 	}
 	/* -------------------------------------------------------------------------------
-		Method:  idFromCoord
-		Get the index of the monitor containing the specified x and y coordinates.
-		
-		Parameters:
-		x,y - Coordinates
-		default - Default monitor
-		
-		Returns:
-		Index of the monitor at specified coordinates
-		
-		See Also:
+	Method:  idFromCoord
+	Get the index of the monitor containing the specified x and y coordinates.
+	
+	Parameters:
+	x,y - Coordinates
+	default - Default monitor
+	
+	Returns:
+	Index of the monitor at specified coordinates
+	
+	See Also:
 	<hmonFromCoord>
 	*/
 	idFromCoord(x, y, default := 1) {
@@ -326,16 +323,16 @@ class MultiMony {
 		return mon
 	}
 	/* -------------------------------------------------------------------------------
-		Method:  idFromHwnd
-		Get the ID of the monitor containing the swindow with given window handle.
+	Method:  idFromHwnd
+	Get the ID of the monitor containing the swindow with given window handle.
 		
-		Parameters:
-		hwnd - Window Handle
-		
-		Returns:
-		ID of the monitor containing the specified window
-		
-		See Also:
+	Parameters:
+	hwnd - Window Handle
+	
+	Returns:
+	ID of the monitor containing the specified window
+	
+	See Also:
 	<hmonFromHwnd>
 	*/
 	idFromHwnd(hwnd) {
@@ -345,14 +342,14 @@ class MultiMony {
 		return id
 	}
 	/* -------------------------------------------------------------------------------
-		Method:   idFromMouse
-		Get the index of the monitor where the mouse is
+	Method:   idFromMouse
+	Get the index of the monitor where the mouse is
 		
-		Parameters:
-		default - Default monitor
+	Parameters:
+	default - Default monitor
 		
-		Returns:
-		Index of the monitor where the mouse is
+	Returns:
+	Index of the monitor where the mouse is
 	*/
 	idFromMouse(default:=1) {
 		CoordMode("Mouse", "Screen")
@@ -362,16 +359,16 @@ class MultiMony {
 		return mon
 	}
 	/* -------------------------------------------------------------------------------
-		Method:   idFromHmon
-		Get the index of the monitor from monitor handle
+	Method:   idFromHmon
+	Get the index of the monitor from monitor handle
 		
-		Parameters:
-		hmon - monitor handle
+	Parameters:
+	hmon - monitor handle
 		
-		Returns:
-		Index of the monitor
-		
-		See Also:
+	Returns:
+	Index of the monitor
+	
+	See Also:
 	<hmonFromId>
 	*/
 	idFromHmon(hmon) {
@@ -384,16 +381,16 @@ class MultiMony {
 		return MonNum
 	}
 	/* -------------------------------------------------------------------------------
-		Method:  idFromRect
-		Get the ID of the monitor that has the largest area of intersection with a specified rectangle.
+	Method:  idFromRect
+	Get the ID of the monitor that has the largest area of intersection with a specified rectangle.
 		
-		Parameters:
-		x,y, w,h - rectangle
+	Parameters:
+	x,y, w,h - rectangle
 		
-		Returns:
-		Monitor Handle
+	Returns:
+	Monitor Handle
 		
-		See Also:
+	See Also:
 	<hmonFromRect>
 	*/
 	idFromRect(x, y, w, h) {
@@ -403,14 +400,14 @@ class MultiMony {
 		return id
 	}
 	/* -------------------------------------------------------------------------------
-		Method:	idNext
-		Gets the id of the next monitor.
+	Method:	idNext
+	Gets the id of the next monitor.
 		
-		Parameters:
-		id - monitor, whose next monitorid has to be determined
-		cycle - *== 1* cycle through monitors; *== 0* stop at last monitor (*Optional*, Default: 1)
+	Parameters:
+	id - monitor, whose next monitorid has to be determined
+	cycle - *== 1* cycle through monitors; *== 0* stop at last monitor (*Optional*, Default: 1)
 		
-		See Also:
+	See Also:
 	<idPrev>
 	*/
 	idNext( currMon := 1, cycle := true ) {
@@ -429,14 +426,14 @@ class MultiMony {
 		return nextMon
 	}
 	/* -------------------------------------------------------------------------------
-		Method:	idPrev
-		Gets the id of the previous monitor
+	Method:	idPrev
+	Gets the id of the previous monitor
 		
-		Parameters:
-		id - monitor, whose previous monitor id has to be determined
-		cycle - *== true* cycle through monitors; *== false* stop at first monitor (*Optional*, Default: true)
-		
-		See Also:
+	Parameters:
+	id - monitor, whose previous monitor id has to be determined
+	cycle - *== true* cycle through monitors; *== false* stop at first monitor (*Optional*, Default: true)
+	
+	See Also:
 	<idNext>
 	*/
 	idPrev( currMon := 1, cycle := true ) {
@@ -455,11 +452,11 @@ class MultiMony {
 		return prevMon
 	}
 	/* -------------------------------------------------------------------------------
-		Method:	monitors
-		Enumerates display monitors and returns an object all monitors (list of <Mony at http://hoppfrosch.github.io/AHK_Windy/files/Mony-ahk.html> object )
+	Method:	monitors
+	Enumerates display monitors and returns an object all monitors (list of <Mony at http://hoppfrosch.github.io/AHK_Windy/files/Mony-ahk.html> object )
 		
-		Returns:
-		monitors - associative array with monitor id as key and <Mony at http://hoppfrosch.github.io/AHK_Windy/files/Mony-ahk.html> objects as values
+	Returns:
+	monitors - associative array with monitor id as key and <Mony at http://hoppfrosch.github.io/AHK_Windy/files/Mony-ahk.html> objects as values
 	*/
 	monitors() {
 		Monis := {}
@@ -474,11 +471,11 @@ class MultiMony {
 	}
 	; ====== Internal Methods =========================================================
 	/* -------------------------------------------------------------------------------
-		Function: __New
-		Constructor (*INTERNAL*)
-		
-		Parameters:
-		_debug - Flag to enable debugging (Optional - Default: 0)
+	Function: __New
+	Constructor (*INTERNAL*)
+	
+	Parameters:
+	_debug - Flag to enable debugging (Optional - Default: 0)
 	*/
 	__New(_debug := false) {
 		this._debug := _debug

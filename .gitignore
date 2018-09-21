@@ -1,3 +1,4 @@
 t/backup/
 .vscode
 *.code-workspace
+_build/NDProj/Working Data/
