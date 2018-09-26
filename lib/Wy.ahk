@@ -6,6 +6,7 @@
 
 #include Wy\Colory.ahk
 #include Wy\ScreenSavy.ahk
+#include Wy\Mousy.ahk
 #include Wy\Mony.ahk
 #include Wy\MultiMony.ahk
 
