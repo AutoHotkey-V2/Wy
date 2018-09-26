@@ -1,0 +1,1 @@
+NDSummary.OnToolTipsLoaded("File:Const_WinUser.ahk",{72:"<div class=\"NDToolTip TFunction LAutoHotKey\"><div class=\"TTSummary\">AHK version:&nbsp; 2.0-a080-d1c5ddf&nbsp; (AHK_L) Language:&nbsp; English Version:&nbsp; 1.0.0.00/2017-09-13/hoppfrosch</div></div>"});

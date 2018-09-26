@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("sec",["Property"],[["secured",,[["ScreenSaver",,,,0,"File:Wy/ScreenSavy.ahk:ScreenSaver.secured","AutoHotKeyClass:ScreenSaver:secured"]]]]);

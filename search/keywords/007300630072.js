@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("scr",["Class"],[["ScreenSaver",,[[,,,,0,"File:Wy/ScreenSavy.ahk:ScreenSaver","AutoHotKeyClass:ScreenSaver"]]]]);

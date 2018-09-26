@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("nam",["Property"],[["name",,[["Mony",,,,0,"File:Wy/Mony.ahk:Mony.name","AutoHotKeyClass:Mony:name"]]]]);

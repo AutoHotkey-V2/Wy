@@ -1,0 +1,1 @@
+NDFramePage.OnPageTitleLoaded("File:Const_WinUser.ahk","Const_WinUser.ahk");NDSummary.OnSummaryLoaded("File:Const_WinUser.ahk",[["AutoHotKey","AutoHotKey"]],[["Functions","Function"],["Groups","Group"]],[[71,0,1,"Functions","Functions"],[72,0,0,"<span class=\"Qualifier\">Several Constants from Windows_API (winuser.</span>&#8203;h)","Several_Constants_from_Windows_API"]]);

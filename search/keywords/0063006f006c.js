@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("col",["Class"],[["Colory",,[[,,,,0,"File:Wy/Colory.ahk:Colory","AutoHotKeyClass:Colory"]]]]);

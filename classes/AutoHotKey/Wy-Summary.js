@@ -1,0 +1,1 @@
+NDFramePage.OnPageTitleLoaded("AutoHotKeyClass:Wy","Wy");NDSummary.OnSummaryLoaded("AutoHotKeyClass:Wy",[["AutoHotKey","AutoHotKey"]],[["Classes","Class"]],[[4,0,0,"Wy"]]);

@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("fro",["Function"],[["from",,[[,"Several Constants from Windows_API",,,0,"File:Const_WinUser.ahk:Several_Constants_from_Windows_API"]]],["fromJSON",,[["Colory",,,,0,"File:Wy/Colory.ahk:Colory.fromJSON","AutoHotKeyClass:Colory:fromJSON"]]],["fromRGB",,[["Colory",,,,0,"File:Wy/Colory.ahk:Colory.fromRGB","AutoHotKeyClass:Colory:fromRGB"]]]]);

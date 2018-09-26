@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("loa",["Function"],[["Load",,[["JSON",,,,0,"File:Wy/JSON.ahk:JSON.Load","AutoHotKeyClass:JSON:Load"]]]]);

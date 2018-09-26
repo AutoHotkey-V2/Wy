@@ -1,0 +1,1 @@
+NDMenu.OnSectionLoaded("classes.js",[[1,"Colory"],[1,"JSON"],[1,"Mony"],[1,"MultiMony"],[1,"ScreenSaver"],[1,"Wy"],[2,"Wy","AutoHotKeyClass:Wy.",[[1,"Pointy"],[1,"Recty"]]]]);

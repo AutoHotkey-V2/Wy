@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("idn",["Property","Function"],[["idNext",,[["Mony",,,,0,"File:Wy/Mony.ahk:Mony.idNext","AutoHotKeyClass:Mony:idNext"],["MultiMony",,,,1,"File:Wy/MultiMony.ahk:MultiMony.idNext","AutoHotKeyClass:MultiMony:idNext"]]]]);

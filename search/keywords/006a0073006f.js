@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("jso",["Class"],[["JSON",,[[,,,,0,"File:Wy/JSON.ahk:JSON","AutoHotKeyClass:JSON"]]]]);

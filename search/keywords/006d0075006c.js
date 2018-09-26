@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("mul",["Class"],[["MultiMony",,[[,,,,0,"File:Wy/MultiMony.ahk:MultiMony","AutoHotKeyClass:MultiMony"]]]]);

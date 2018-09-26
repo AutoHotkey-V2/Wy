@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("sca",["Property"],[["scale",,[["Mony",,,,0,"File:Wy/Mony.ahk:Mony.scale","AutoHotKeyClass:Mony:scale"]]],["scaleX",,[["Mony",,,,0,"File:Wy/Mony.ahk:Mony.scaleX","AutoHotKeyClass:Mony:scaleX"]]],["scaleY",,[["Mony",,,,0,"File:Wy/Mony.ahk:Mony.scaleY","AutoHotKeyClass:Mony:scaleY"]]]]);

@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("__n",["Function"],[["__New",,[["Colory",,,,0,"File:Wy/Colory.ahk:Colory.__New","AutoHotKeyClass:Colory:__New"],["Mony",,,,0,"File:Wy/Mony.ahk:Mony.__New","AutoHotKeyClass:Mony:__New"],["MultiMony",,,,0,"File:Wy/MultiMony.ahk:MultiMony.__New","AutoHotKeyClass:MultiMony:__New"]]]]);

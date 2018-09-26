@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("dum",["Function"],[["Dump",,[["Colory","dump",,,0,"File:Wy/Colory.ahk:Colory.dump","AutoHotKeyClass:Colory:dump"],["JSON",,,,0,"File:Wy/JSON.ahk:JSON.Dump","AutoHotKeyClass:JSON:Dump"]]]]);

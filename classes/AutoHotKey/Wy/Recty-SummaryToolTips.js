@@ -1,0 +1,1 @@
+NDSummary.OnToolTipsLoaded("AutoHotKeyClass:Wy.Recty",{6:"<div class=\"NDToolTip TClass LAutoHotKey\"><div class=\"TTSummary\">2-dimensional rectangle, based on Class GdipC.Rectangle</div></div>"});

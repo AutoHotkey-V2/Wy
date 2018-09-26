@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("deb",["Property"],[["debug",,[["Colory",,,,0,"File:Wy/Colory.ahk:Colory.debug","AutoHotKeyClass:Colory:debug"],["Mony",,,,0,"File:Wy/Mony.ahk:Mony.debug","AutoHotKeyClass:Mony:debug"],["MultiMony",,,,0,"File:Wy/MultiMony.ahk:MultiMony.debug","AutoHotKeyClass:MultiMony:debug"]]]]);

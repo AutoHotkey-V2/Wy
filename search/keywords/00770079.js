@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("wy",["Class"],[["Wy",,[[,,,,0,"File:Wy.ahk:Wy(2)","AutoHotKeyClass:Wy"]]]]);

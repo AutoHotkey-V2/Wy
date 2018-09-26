@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("idt",["Property"],[["idTaskbar",,[["MultiMony",,,,0,"File:Wy/MultiMony.ahk:MultiMony.idTaskbar","AutoHotKeyClass:MultiMony:idTaskbar"]]]]);

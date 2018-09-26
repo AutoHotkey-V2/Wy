@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("pri",["Property"],[["primary",,[["Mony",,,,0,"File:Wy/Mony.ahk:Mony.primary","AutoHotKeyClass:Mony:primary"]]]]);

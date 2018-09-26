@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("hex",["Property"],[["hex",,[["Colory",,,,0,"File:Wy/Colory.ahk:Colory.hex","AutoHotKeyClass:Colory:hex"]]]]);

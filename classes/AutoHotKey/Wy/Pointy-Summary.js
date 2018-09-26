@@ -1,0 +1,1 @@
+NDFramePage.OnPageTitleLoaded("AutoHotKeyClass:Wy.Pointy","Pointy");NDSummary.OnSummaryLoaded("AutoHotKeyClass:Wy.Pointy",[["AutoHotKey","AutoHotKey"]],[["Classes","Class"]],[[5,0,0,"<span class=\"Qualifier\">Wy.</span>&#8203;Pointy"]]);

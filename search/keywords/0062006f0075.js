@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("bou",["Property"],[["boundary",,[["Mony",,,,0,"File:Wy/Mony.ahk:Mony.boundary","AutoHotKeyClass:Mony:boundary"]]]]);

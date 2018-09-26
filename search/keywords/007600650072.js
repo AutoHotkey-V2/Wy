@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("ver",["Property"],[["version",,[["Mony",,,,0,"File:Wy/Mony.ahk:Mony.version","AutoHotKeyClass:Mony:version"],["MultiMony",,,,0,"File:Wy/MultiMony.ahk:MultiMony.version","AutoHotKeyClass:MultiMony:version"]]]]);

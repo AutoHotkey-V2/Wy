@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("tim",["Property"],[["timeout",,[["ScreenSaver",,,,0,"File:Wy/ScreenSavy.ahk:ScreenSaver.timeout","AutoHotKeyClass:ScreenSaver:timeout"]]]]);

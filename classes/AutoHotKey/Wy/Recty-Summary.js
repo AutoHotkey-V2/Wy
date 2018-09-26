@@ -1,0 +1,1 @@
+NDFramePage.OnPageTitleLoaded("AutoHotKeyClass:Wy.Recty","Recty");NDSummary.OnSummaryLoaded("AutoHotKeyClass:Wy.Recty",[["AutoHotKey","AutoHotKey"]],[["Classes","Class"]],[[6,0,0,"<span class=\"Qualifier\">Wy.</span>&#8203;Recty"]]);

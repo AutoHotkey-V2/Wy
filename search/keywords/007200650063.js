@@ -1,0 +1,1 @@
+NDSearch.OnPrefixDataLoaded("rec",["Function","Class"],[["rectToPercent",,[["Mony",,,,0,"File:Wy/Mony.ahk:Mony.rectToPercent","AutoHotKeyClass:Mony:rectToPercent"]]],["Recty",,[["Wy",,,,1,"File:Wy.ahk:Wy.Recty","AutoHotKeyClass:Wy.Recty"]]]]);
