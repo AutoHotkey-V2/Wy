@@ -15,9 +15,9 @@ ReferenceVersion := "0.1.0"
 debug := 1
 
 OutputDebug "DBGVIEWCLEAR"
-;Yunit.Use(YunitStdOut, YunitWindow).Test(ProblematicTestSuite)
-;Yunit.Use(YunitStdOut, YunitWindow).Test(_BaseTestSuite, MiscTestSuite)
-Yunit.Use(YunitOutputDebug, YunitWindow).Test(_BaseTestSuite)
+;Yunit.Use(YunitOutputDebug, YunitWindow).Test(ProblematicTestSuite)
+Yunit.Use(YunitOutputDebug, YunitWindow).Test(_BaseTestSuite, MiscTestSuite)
+;Yunit.Use(YunitOutputDebug, YunitWindow).Test(_BaseTestSuite)
 
 Return
 
@@ -49,7 +49,7 @@ class TempTestSuite
 		this.r := 
 	}
 }
-
+*/
 
 class MiscTestSuite
 {
@@ -66,7 +66,7 @@ class MiscTestSuite
 		this.r.locate()
 		dbgOut("<[" A_ThisFunc "]", debug)
 	}
-
+/*
 	monitorID() {
 		Global debug
 		dbgOut(">[" A_ThisFunc "]", debug)
@@ -112,14 +112,13 @@ class MiscTestSuite
 		this.r.pos := new Pointy(100,100)
 		dbgOut("<[" A_ThisFunc "]", debug)
 	}
-
+*/
 	End() {
 		this.r.moveable := 1
-		this.remove("r")
-		this.r := 
 	}
 }
 
+/*
 ; Does not work within YUnit-TestSuite :-(
 class ProblematicTestSuite
 {
