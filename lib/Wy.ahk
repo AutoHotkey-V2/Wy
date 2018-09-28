@@ -52,7 +52,7 @@ class Wy {
 	Authors:
 	<hoppfrosch at hoppfrosch@gmx.de>: Original
 	*/
-	_version := "1.0.1"
+	_version := "1.0.2"
 	__New()  {
 	}
 	
@@ -72,6 +72,22 @@ class Wy {
 	<hoppfrosch at hoppfrosch@gmx.de>: Original
 	*/
 	{
+		fromMouse() {
+		/* --------------------------------------------------------------------------------------
+		Method: fromMouse()
+		Creates an new instance from current mouseposition
+
+		Example:
+
+		==== AutoHotkey ====
+		pt := Wy.Pointy.fromMouse()
+		===
+		*/
+			CoordMode("Mouse", "Screen")
+			MouseGetPos(x, y)
+			r := new Wy.Pointy(x, y)
+			return r
+		}
 		ToJSON() {
 			return "{`"x`":=" this.x ",`"y`":" this.y "}"
 		}
