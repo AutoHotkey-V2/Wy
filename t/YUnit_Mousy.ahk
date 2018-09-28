@@ -60,29 +60,29 @@ class MiscTestSuite
 		this.r.moveable := 0
 		}
 
-	Locate() {
+	locate() {
 		Global debug
 		dbgOut(">[" A_ThisFunc "]", debug)
 		this.r.locate()
 		dbgOut("<[" A_ThisFunc "]", debug)
 	}
+
 /*
 	monitorID() {
 		Global debug
 		dbgOut(">[" A_ThisFunc "]", debug)
-		this.r.monitorID := 1
-		Yunit.assert(this.r.monitorID == 1)
+		;this.r.monitorID := 1
+		;Yunit.assert(this.r.monitorID == 1)
 		this.r.monitorID := 2
 		Yunit.assert(this.r.monitorID == 2)
 
-		this.r.x := 100
-		this.r.y := 100
-		Yunit.assert(this.r.monitorID == 2)
-		this.r.x := 2500
-		Yunit.assert(this.r.monitorID == 1)
+		;this.r.x := 100
+		;this.r.y := 100
+		;Yunit.assert(this.r.monitorID == 1)
+		;this.r.x := 2500
+		;Yunit.assert(this.r.monitorID == 2)
 		dbgOut("<[" A_ThisFunc "]", debug)
 	}
-
 	speed() {
 		Global debug
 		dbgOut(">[" A_ThisFunc "]", debug)
@@ -97,23 +97,39 @@ class MiscTestSuite
 		Yunit.assert(this.r.speed == saveSpeed)
 		dbgOut("<[" A_ThisFunc "]", debug)
 	}
+*/
 
 	move() {
 		Global debug
 		dbgOut(">[" A_ThisFunc "]", debug)
-		this.r.x := 100
-		this.r.y := 100
-		this.r.movespeed := 25
-		this.r.movemode := 1
-		this.r.x :=1000
-		this.r.movemode := 3
-		this.r.pos := new Pointy(500,500)
-		this.r.movemode := 2
-		this.r.pos := new Pointy(100,100)
+		m := new Mousy(debug)
+		
+		m.x := 100
+		m.y := 100
+		Yunit.assert(m.pos.x == 100)
+		Yunit.assert(m.pos.y == 100)
+
+		m.movespeed := 25
+		m.movemode := 1
+		m.x :=1000
+		Yunit.assert(m.pos.x == 1000)
+		Yunit.assert(m.pos.y == 100)
+
+		m.movemode := 2
+		m.pos := new Wy.Pointy(500,500)
+		Yunit.assert(m.pos.x == 500)
+		Yunit.assert(m.pos.y == 500)
+
+		m.movemode := 2
+		m.pos := new Wy.Pointy(200,200)
+		Yunit.assert(m.pos.x == 200)
+		Yunit.assert(m.pos.y == 200)
+
 		dbgOut("<[" A_ThisFunc "]", debug)
 	}
-*/
+
 	End() {
+		sleep 5000
 		this.r.moveable := 1
 	}
 }

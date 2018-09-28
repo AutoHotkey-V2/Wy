@@ -1,6 +1,7 @@
 ﻿; ****** HINT: Documentation can be extracted to HTML using NaturalDocs (http://www.naturaldocs.org/) ************** 
 
 #include %A_LineFile%\..
+#include MultiMony.ahk
 #include Mony.ahk
 #include %A_LineFile%\..\..
 #include Wy.ahk
@@ -25,6 +26,139 @@ class Mousy {
 	_bIsMoveable := true
 
 	; ===== Properties ===============================================================
+	debug[] { ; _DBG_
+   	/* -------------------------------------------------------------------------------
+	Property: debug [get/set]
+	Debug flag for debugging the object
+
+	Value:
+	flag - *true* or *false*
+	*/
+		get {
+			return this._debug
+		}
+		set {
+			mode := value<1?0:1
+			this._debug := mode
+			return this._debug
+		}
+	}
+	monitorID[] {
+	/* ---------------------------------------------------------------------------------------
+	Property: monitorID [get/set]
+	Get or Set the monitor the mouse is currently on
+	*/
+		get {
+			md := new MultiMony(this._debug)
+			return md.idFromMouse()
+		}
+		set {
+			currMon := this.monitorID
+			dbgOut("=[" A_ThisFunc "()] - >New:" value "<-> Current:" CurrMon, this.debug)
+			if (value != currMon) {
+				md := new MultiMony(this._debug)
+				; Determine relative Coordinates relative to current monitor
+				curr := md.coordVirtualScreenToDisplay(this.x,this.y) 
+				; Determine scaling factors from current monitor to destination monitor
+				monCurr := new Mony(currMon, this._debug)
+				scaleX := monCurr.scaleX(value)
+				scaleY := monCurr.scaleY(value)
+				mon := new Mony(value, this._debug)
+				r := mon.boundary
+				; Scale the relative coordinates and add them to the origin of destination monitor
+				x := r.x + scaleX*curr.pt.x
+				y := r.y + scaleY*curr.pt.y
+				; Move the mouse onto new monitor
+				this.__move(x, y)
+			}
+			return this.monitorID
+		}
+	}
+	moveable[] {
+	/* ---------------------------------------------------------------------------------------
+	Property: movable [get/set]
+	Get or Sets the posibility to move the mouse via user's physical movement
+
+	Value:
+	flag - True or False
+	*/
+		get {
+			return this._bIsMoveable
+		}
+		set {
+			this._bIsMoveable := value
+			if (value == true)
+				BlockInput("MouseMoveOff")
+			else 
+				BlockInput("MouseMove")
+			return value
+		}
+	}
+	moveMode[] {
+	/* ---------------------------------------------------------------------------------------
+	Property: moveMode [get/set]
+	Movement mode while moving the mouse via <pos at http://hoppfrosch.github.io/AHK_Windy/files/Mousy-ahk.html#pos>, <x at http://hoppfrosch.github.io/AHK_Windy/files/Mousy-ahk.html#x>, <y at http://hoppfrosch.github.io/AHK_Windy/files/Mousy-ahk.html#y>
+
+	This has to be a value out of 
+	
+	 * 0: mouse jumps immediatialy to the new position
+	 * 1: mouse moves to new position following a linear track (default)
+	 * 2: mouse moves to new position following a random track jittering along a line
+	 * 3: mouse moves to new position following a random track following a bezier curce
+
+	The speed of the movement can be set via <moveSpeed at http://hoppfrosch.github.io/AHK_Windy/files/Mousy-ahk.html#moveSpeed>
+	*/
+		get {
+			return this._movemode
+		}
+		set {
+			if (value < 0)
+				value := 0
+			if (value > 3)
+				value := 3
+			this._movemode := value
+			return value
+		}
+	}
+	moveSpeed[] {
+	/* ---------------------------------------------------------------------------------------
+	Property: moveSpeed [get/set]
+	Speed while moving the mouse via <pos at http://hoppfrosch.github.io/AHK_Windy/files/Mousy-ahk.html#pos>, <x at http://hoppfrosch.github.io/AHK_Windy/files/Mousy-ahk.html#x>, <y at http://hoppfrosch.github.io/AHK_Windy/files/Mousy-ahk.html#y>
+
+	This has to be a value from range [0 (instant) ..100 (slow)]
+	*/
+		get {
+			return this._movespeed
+		}
+		set {
+			if (value < 0)
+				value := 0
+			if (value > 100)
+				value := 100
+			this._movespeed := value
+			return value
+		}
+	}
+	pos[] {
+	/* ---------------------------------------------------------------------------------------
+	Property: pos [get/set]
+	Get or Set position of mouse as a <point at http://hoppfrosch.github.io/AHK_Windy/files/Pointy-ahk.html>
+
+	See also: 
+	<x  [get/set]>, <y  [get/set]>
+	*/
+		get {
+			ret := Wy.Pointy.fromMouse()
+			dbgOut("=[" A_ThisFunc "()] -> " ret.toJson(), this.debug)
+			return ret
+		}
+		
+		set {
+			this.__move(value.x, value.y)
+			dbgOut("=[" A_ThisFunc "(" value.toJson() ")]", this.debug)
+			return value
+		}
+	}
 	version[] {
     /* -------------------------------------------------------------------------------
 	Property: version [get]
@@ -35,6 +169,46 @@ class Mousy {
 	*/
 		get {
 			return this._version
+		}
+	}
+	x[] {
+	/* ---------------------------------------------------------------------------------------
+	Property: x [get/set]
+	Get or Set x-coordinate of mouse
+
+	See also: 
+	<pos [get/set]>, <y [get/set]>
+	*/
+		get {
+			dbgOut("=[" A_ThisFunc "()] -> " this.pos.x, this.debug)
+			return this.pos.x
+		}
+		
+		set {
+			dbgOut(">[" A_ThisFunc "(value=" value ")]", this.debug)
+			this.__move(value, this.y)
+			dbgOut("<[" A_ThisFunc "(value=" value ")]", this.debug)
+			return value
+		}
+	}
+	y[] {
+	/* ---------------------------------------------------------------------------------------
+	Property: y [get/set]
+	Get or Set y-coordinate of mouse
+
+	See also: 
+	<pos [get/set]>, <x [get/set]>
+	*/
+		get {
+			dbgOut("=[" A_ThisFunc "()] -> " this.pos.y, this.debug)
+			return this.pos.y
+		}
+		
+		set {
+			dbgOut(">[" A_ThisFunc "(value=" value ")]", this.debug)
+			this.__move(this.x, value)
+			dbgOut("<[" A_ThisFunc "(value=" value ")]", this.debug)
+			return value
 		}
 	}
 
@@ -113,10 +287,8 @@ class Mousy {
 	Destructor (*INTERNAL*)
 	*/ 
 	__Delete() {
-		dbgOut(">" A_ThisFunc "([" this.hwnd "])", this.debug)
 		this.moveable := 1
-	  dbgOut("|" A_ThisFunc "([" this.hwnd "]): Mouse moveable? " this.moveable, this.debug)	
-		dbgOut("<" A_ThisFunc "([" this.hwnd "])", this.debug)
+	  	dbgOut("=" A_ThisFunc "([" this.hwnd "]): Mouse moveable? " this.moveable, this.debug)	
 	}
 	/* ---------------------------------------------------------------------------------------
 	Method:  __move
@@ -125,8 +297,8 @@ class Mousy {
 	Parameters:
 	x,y - Coordinates to move to
 	*/
-	/*  
 	__move(x,y, mode := -1, speed := -1) {
+		dbgOut(">[" A_ThisFunc "(x=" x ",y=" y ",mode=" mode ",speed=" speed ")]", this.debug)	
 		if (speed == -1) {
 			speed := this._movespeed
 		}
@@ -151,8 +323,8 @@ class Mousy {
 		if (this.showLocatorAfterMove == 1)
 			this.locate()
 		SetMouseDelay(T)
+		dbgOut("<[" A_ThisFunc "(x=" x ",y=" y ",mode=" mode ",speed=" speed ")]", this.debug)	
 	}
-	*/
 	/* ---------------------------------------------------------------------------------------
 	Method:  __moveRandomBezier
 	Moves the mouse to given coordinates on a random path, following a bezier curve  (*INTERNAL*)
@@ -163,7 +335,6 @@ class Mousy {
 	Authors:
 	* Original: <masterfocus at https://github.com/MasterFocus/AutoHotkey/tree/master/Functions/RandomBezier>
 	*/
-	/*
 	__moveRandomBezier(x, y, Speed:=-1) {
 		if (speed == -1) {
 			speed := this._movespeed
@@ -172,10 +343,9 @@ class Mousy {
 		T := A_MouseDelay
 		SetMouseDelay(-1)
 		MouseGetPos(CX, CY)
-		RandomBezier(CX, CY, x, y, "T" time)
+		;RandomBezier(CX, CY, x, y, "T" time)
 		SetMouseDelay(T)
 	}
-	*/
 	/* ---------------------------------------------------------------------------------------
 	Method:  __moveRandomLinear
 	Moves the mouse to given coordinates on a random path, jittering along a line (*INTERNAL*)
@@ -186,7 +356,6 @@ class Mousy {
 	Authors:
 	* Original: <slanter me at http://slanter-ahk.blogspot.de/2008/12/ahk-random-mouse-path-mousemove.html>
 	*/
-	/*
 	__moveRandomLinear(x, y, Speed := -1) {
 		if (speed == -1) {
 			speed := this._movespeed
@@ -203,5 +372,4 @@ class Mousy {
 		MouseMove(X,Y,Speed)
 		SetMouseDelay(T)
 	}
-	*/
 }
