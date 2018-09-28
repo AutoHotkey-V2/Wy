@@ -17,39 +17,24 @@ debug := 1
 OutputDebug "DBGVIEWCLEAR"
 ;Yunit.Use(YunitOutputDebug, YunitWindow).Test(ProblematicTestSuite)
 Yunit.Use(YunitOutputDebug, YunitWindow).Test(_BaseTestSuite, MiscTestSuite)
-;Yunit.Use(YunitOutputDebug, YunitWindow).Test(_BaseTestSuite)
+;Yunit.Use(YunitOutputDebug, YunitWindow).Test(TempTestSuite)
 
 Return
 
-/*
+
 class TempTestSuite
 {
 	Begin()	{
 		Global debug
 		this.r := new Mousy(debug)
-	}
-
-	move() {
-		Global debug
-		dbgOut(">[" A_ThisFunc "]", debug)
-		this.r.x := 100
-		this.r.y := 100
-		this.r.movespeed := 25
-		this.r.movemode := 1
-		this.r.x :=1000
-		this.r.movemode := 3
-		this.r.pos := new Pointy(500,500)
-		this.r.movemode := 2
-		this.r.pos := new Pointy(100,100)
-		dbgOut("<[" A_ThisFunc "]", debug)
+		this.r.moveable := 0
 	}
 
 	End() {
-		this.remove("r")
-		this.r := 
+		this.r.moveable := 1
 	}
 }
-*/
+
 
 class MiscTestSuite
 {
@@ -58,6 +43,7 @@ class MiscTestSuite
 		this.r := new Mousy(debug)
 		dbgOut("=[" A_ThisFunc "]: moveable=" this.r.moveable, debug)
 		this.r.moveable := 0
+		this.savepos := this.r.pos
 		}
 
 	locate() {
@@ -68,21 +54,6 @@ class MiscTestSuite
 	}
 
 /*
-	monitorID() {
-		Global debug
-		dbgOut(">[" A_ThisFunc "]", debug)
-		;this.r.monitorID := 1
-		;Yunit.assert(this.r.monitorID == 1)
-		this.r.monitorID := 2
-		Yunit.assert(this.r.monitorID == 2)
-
-		;this.r.x := 100
-		;this.r.y := 100
-		;Yunit.assert(this.r.monitorID == 1)
-		;this.r.x := 2500
-		;Yunit.assert(this.r.monitorID == 2)
-		dbgOut("<[" A_ThisFunc "]", debug)
-	}
 	speed() {
 		Global debug
 		dbgOut(">[" A_ThisFunc "]", debug)
@@ -98,6 +69,25 @@ class MiscTestSuite
 		dbgOut("<[" A_ThisFunc "]", debug)
 	}
 */
+	monitorID() {
+		Global debug
+		dbgOut(">[" A_ThisFunc "]", debug)
+		this.r.monitorID := 1
+		Yunit.assert(this.r.monitorID == 1)
+		this.r.monitorID := 2
+		Yunit.assert(this.r.monitorID == 2)
+		this.r.monitorID := 3
+		Yunit.assert(this.r.monitorID == 3)
+
+		this.r.x := 100
+		this.r.y := 100
+		Yunit.assert(this.r.monitorID == 1)
+		this.r.x := 2500
+		Yunit.assert(this.r.monitorID == 2)
+		this.r.x := 4000
+		Yunit.assert(this.r.monitorID == 3)
+		dbgOut("<[" A_ThisFunc "]", debug)
+	}
 
 	move() {
 		Global debug
@@ -129,7 +119,7 @@ class MiscTestSuite
 	}
 
 	End() {
-		sleep 5000
+		this.r.pos := this.savepos
 		this.r.moveable := 1
 	}
 }

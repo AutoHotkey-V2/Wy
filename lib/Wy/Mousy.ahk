@@ -61,8 +61,8 @@ class Mousy {
 				curr := md.coordVirtualScreenToDisplay(this.x,this.y) 
 				; Determine scaling factors from current monitor to destination monitor
 				monCurr := new Mony(currMon, this._debug)
-				scaleX := monCurr.scaleX(value)
-				scaleY := monCurr.scaleY(value)
+				scaleX := monCurr.scaleX
+				scaleY := monCurr.scaleY
 				mon := new Mony(value, this._debug)
 				r := mon.boundary
 				; Scale the relative coordinates and add them to the origin of destination monitor

@@ -19,6 +19,7 @@ Following classes exist:
 	
 - <Colory> - Handling colors
 - <Mony> - Single Monitor
+- <Mousy> - Handling the mouse
 - <MultiMony> - Multi Monitor Environments
 - <ScreenSaver> - Settings of Windows-Screensaver
 - <Wy.Pointy> - Points (geometric 2D-points) - this is mostly a helper class being used within this package, but maybe helpful anyway ...
