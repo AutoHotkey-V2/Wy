@@ -14,7 +14,7 @@ class Mony {
 	<hoppfrosch at hoppfrosch@gmx.de>: Original
 	*/
 	_debug := 0
-	_version := "0.1.0"
+	_version := "0.1.1"
 	_id := 0
 	_hmon := 0
 	_overlay := Object()
@@ -528,6 +528,7 @@ class Mony {
 	*/  
 	__New(_id := 1, _debug := false) {
 		this._debug := _debug
+		dbgOut(">[" A_ThisFunc "(_id:=" _id ", _debug:=" _debug ")] (version: " this.version ")" , this.debug)
 		ret := true
 		CoordMode("Mouse", "Screen")
 		mCnt := MonitorGetCount()
@@ -536,15 +537,15 @@ class Mony {
 				this.id := _id
 			}
 			else {
-				dbgOut("=[" A_ThisFunc "(_id:=" _id ", _debug:=" _debug ")] (version: " this.version ") -> " false , this.debug)
+				dbgOut("<[" A_ThisFunc "(_id:=" _id ", _debug:=" _debug ")] (version: " this.version ") -> " false , this.debug)
 				return false
 			}
 		}
 		else {
-			dbgOut("=[" A_ThisFunc "(_id:=" _id ", _debug:=" _debug ")] (version: " this.version ") -> " false , this.debug)
+			dbgOut("<[" A_ThisFunc "(_id:=" _id ", _debug:=" _debug ")] (version: " this.version ") -> " false , this.debug)
 			return false
 		}
-		dbgOut("=[" A_ThisFunc "(_id:=" _id ", _debug:=" _debug ")] (version: " this.version ") -> " this.id , this.debug)
+		dbgOut("<[" A_ThisFunc "(_id:=" _id ", _debug:=" _debug ")] (version: " this.version ") -> " this.id , this.debug)
 		return this
 	}
 }

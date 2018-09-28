@@ -13,7 +13,7 @@ class MultiMony {
 	<hoppfrosch at hoppfrosch@gmx.de>: Original
 	*/
 	_debug := 0
-	_version := "0.1.0"
+	_version := "0.1.1"
 	
 	; ===== Properties ==============================================================
 	debug[] {
@@ -70,7 +70,7 @@ class MultiMony {
 		get {
 			CoordMode("Mouse","Screen")
 			mCnt := MonitorGetCount()
-			dbgOut("=[" A_ThisFunc "()) -> (" mCnt ")]", this._debug)
+			dbgOut("=[" A_ThisFunc "()] -> " mCnt "", this._debug)
 			return mCnt
 		}
 	}
@@ -119,6 +119,7 @@ class MultiMony {
 	<size [get]>
 	*/
 		get {
+			dbgOut(">[" A_ThisFunc "()]", this._debug)
 			x := SysGet(76)
 			y := SysGet(77)
 			w := SysGet(78)
@@ -163,16 +164,19 @@ class MultiMony {
 	Object containing relative coordinates as <Wy.Pointy> and monitorID
 	*/
 	coordVirtualScreenToDisplay(x,y) {
+		dbgOut(">[" A_ThisFunc "( x:=" . x . ", y:=" . y . ")]", this._debug)
 		ret := Object()
 		ret.monID := this.idFromCoord(x,y)
 		
 		oMon := new Mony(ret.monId, this._debug)
 		r := oMon.boundary
+		dbgOut("=[" A_ThisFunc "( x:=" x ", y:=" y ")] -> ( " . type(x) . "," . type(y) . " * " . type(r.x) . "," . type(r.y) . "))", this._debug)
+
 		xret := x - r.x
 		yret := y - r.y
 		pt := new Wy.Pointy(xret, yret)
 		ret.pt := pt
-		dbgOut("=[" A_ThisFunc "( x:=" x ", y:=" y ")] -> ( " ret.monId ",(" ret.pt.toJSON() "))", this._debug)
+		dbgOut("<[" A_ThisFunc "( x:=" x ", y:=" y ")] -> ( " ret.monId ",(" ret.pt.toJSON() "))", this._debug)
 		return ret
 	}
 	/* -------------------------------------------------------------------------------
@@ -239,9 +243,10 @@ class MultiMony {
 	<idFromHmon>
 	*/
 	hmonFromid(id := 1) {
+		dbgOut(">[" A_ThisFunc "(id:=" id ")]", this._debug)	
 		oMon := new Mony(id, this._debug)
 		hmon := oMon.hmon
-		dbgOut("=[" A_ThisFunc "(id:=" id ")] -> " hmon, this._debug)
+		dbgOut("<[" A_ThisFunc "(id:=" id ")] -> " hmon, this._debug)
 		return hmon
 	}
 	/* -------------------------------------------------------------------------------
@@ -261,13 +266,14 @@ class MultiMony {
 	<idFromRect>
 	*/
 	hmonFromRect(x, y, w, h) {
+		dbgOut(">[" A_ThisFunc "(x:=" x ", y:=" y ",w:=" w ", h:=" h ")]", this._debug)
 	   	VarSetCapacity(RC, 16, 0)
 		NumPut(x, RC, 0, "Int")
 		NumPut(y, RC, 4, "Int")
 		NumPut(x + w, RC, 8, "Int")
 		NumPut(y + h, RC, 12, "Int")
 		hmon := DllCall("User32.dll\MonitorFromRect", "Ptr", &RC, "UInt", 0, "UPtr")
-		dbgOut("=[" A_ThisFunc "(x:=" x ", y:=" y ",w:=" w ", h:=" h ")] -> " hmon, this._debug)
+		dbgOut("<[" A_ThisFunc "(x:=" x ", y:=" y ",w:=" w ", h:=" h ")] -> " hmon, this._debug)
 		return hmon
 	}
 	/* -------------------------------------------------------------------------------
@@ -309,7 +315,7 @@ class MultiMony {
 	<hmonFromCoord>
 	*/
 	idFromCoord(x, y, default := 1) {
-		dbgOut(">[" A_ThisFunc "(x=" x ",y=" y ")]", this._debug)
+		dbgOut(">[" A_ThisFunc "(x=" x ",y=" y ",default=" default ")]", this._debug)
 		m := this.monitorsCount
 		mon := default
 		; Iterate through all monitors.
@@ -319,7 +325,7 @@ class MultiMony {
 			if (x >= rect.x && x <= rect.width && y >= rect.y && y <= rect.height)
 				mon := A_Index
 		}
-		dbgOut("<[" A_ThisFunc "(x=" x ",y=" y ")] -> " mon, this._debug)
+		dbgOut("<[" A_ThisFunc "(x=" x ",y=" y ",default=" default ")] -> " mon, this._debug)
 		return mon
 	}
 	/* -------------------------------------------------------------------------------
@@ -336,9 +342,10 @@ class MultiMony {
 	<hmonFromHwnd>
 	*/
 	idFromHwnd(hwnd) {
+		dbgOut(">[" A_ThisFunc "(hwnd:=" hwnd ")]", this._debug)
 		hmon := this.hmonFromHwnd(hwnd)
 		id := this.idFromHmon(hmon)
-		dbgOut("=[" A_ThisFunc "(hwnd:=" hwnd ")] -> " id, this._debug)
+		dbgOut("<[" A_ThisFunc "(hwnd:=" hwnd ")] -> " id, this._debug)
 		return id
 	}
 	/* -------------------------------------------------------------------------------
@@ -352,10 +359,11 @@ class MultiMony {
 	Index of the monitor where the mouse is
 	*/
 	idFromMouse(default:=1) {
+		dbgOut(">[" A_ThisFunc "()]", this._debug)
 		CoordMode("Mouse", "Screen")
-		MouseGetPos x,y
+		MouseGetPos(x,y)
 		mon := this.idFromCoord(x,y,default)
-		dbgOut("=[" A_ThisFunc "()] (" x "," y ")-> " mon, this._debug)
+		dbgOut("<[" A_ThisFunc "()] (" x "," y ")-> " mon, this._debug)
 		return mon
 	}
 	/* -------------------------------------------------------------------------------
@@ -372,12 +380,14 @@ class MultiMony {
 	<hmonFromId>
 	*/
 	idFromHmon(hmon) {
+		dbgOut(">[" A_ThisFunc "(hmon:=" hmon ")] " this._debug)
 		MonNum := 0
 		NumPut(VarSetCapacity(MIEX, 40 + (32 << !!A_IsUnicode)), MIEX, 0, "UInt")
 		If DllCall("User32.dll\GetMonitorInfo", "Ptr", hmon, "Ptr", &MIEX) {
 			MonName := StrGet(&MIEX + 40, 32)    ; CCHDEVICENAME = 32
 			MonNum := RegExReplace(MonName, ".*(\d+)$", "$1")
 		}
+		dbgOut("<[" A_ThisFunc "(hmon:=" hmon ")] -> " MonNum, this._debug)
 		return MonNum
 	}
 	/* -------------------------------------------------------------------------------
@@ -394,9 +404,10 @@ class MultiMony {
 	<hmonFromRect>
 	*/
 	idFromRect(x, y, w, h) {
+		dbgOut(">[" A_ThisFunc "(x:=" x ", y:=" y ",w:=" w ", h:=" h ")]", this._debug)
 		hmon := this.hmonFromRect(x,y,w,h)
 		id := this.idFromHmon(hmon)
-		dbgOut("=[" A_ThisFunc "(x:=" x ", y:=" y ",w:=" w ", h:=" h ")] -> " id, this._debug)
+		dbgOut("<[" A_ThisFunc "(x:=" x ", y:=" y ",w:=" w ", h:=" h ")] -> " id, this._debug)
 		return id
 	}
 	/* -------------------------------------------------------------------------------
@@ -437,6 +448,7 @@ class MultiMony {
 	<idNext>
 	*/
 	idPrev( currMon := 1, cycle := true ) {
+		dbgOut(">[" A_ThisFunc "(currMon=" currMon ", cycle=" cycle ")]", this._debug)
 		prevMon := currMon - 1
 		if (cycle == false) {
 			if (prevMon < 1) {
@@ -448,7 +460,7 @@ class MultiMony {
 				prevMon := this.monitorsCount
 			}
 		}
-		dbgOut("=[" A_ThisFunc "(currMon=" currMon ", cycle=" cycle ")] -> " prevMon, this._debug)
+		dbgOut("<[" A_ThisFunc "(currMon=" currMon ", cycle=" cycle ")] -> " prevMon, this._debug)
 		return prevMon
 	}
 	/* -------------------------------------------------------------------------------
@@ -459,6 +471,7 @@ class MultiMony {
 	monitors - associative array with monitor id as key and <Mony at http://hoppfrosch.github.io/AHK_Windy/files/Mony-ahk.html> objects as values
 	*/
 	monitors() {
+		dbgOut(">[" A_ThisFunc "()]", this._debug)
 		Monis := {}
 		mc := this.monitorsCount
 		id := 1
@@ -466,7 +479,7 @@ class MultiMony {
 			Monis[id] :=new Mony(id)
 			id++
 		}
-		dbgOut("=[" A_ThisFunc "()] -> " Monis.MaxIndex() " Monitors", this._debug)
+		dbgOut("<[" A_ThisFunc "()] -> " Monis.MaxIndex() " Monitors", this._debug)
 		Return Monis
 	}
 	; ====== Internal Methods =========================================================
