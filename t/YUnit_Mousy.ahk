@@ -30,6 +30,25 @@ class TempTestSuite
 		this.r.moveable := 0
 	}
 
+	trail() {
+		Global debug
+		CoordMode("Mouse","Screen")
+		dbgOut(">[" A_ThisFunc "]", debug)
+		MouseMove(1,1,10)
+		savetrail := this.r.trail
+		savespeed := this.r.movespeed
+		this.r.movespeed := 1
+		this.r.trail := 10
+		MouseMove(1000, 1000,10)
+		Yunit.assert(this.r.trail == 10)
+		this.r.trail := 0
+		MouseMove(1,1,10)
+		Yunit.assert(this.r.trail == 0)
+		this.r.trail := savetrail
+		this.r.movespeed := savespeed
+		dbgOut("<[" A_ThisFunc "]", debug)
+	}
+
 	End() {
 		this.r.moveable := 1
 	}
@@ -41,9 +60,11 @@ class MiscTestSuite
 	Begin()	{
 		Global debug
 		this.r := new Mousy(debug)
-		dbgOut("=[" A_ThisFunc "]: moveable=" this.r.moveable, debug)
+		dbgOut(">[" A_ThisFunc "]: moveable=" this.r.moveable, debug)
 		this.r.moveable := 0
+		this.r.showLocatorAfterMove := 0
 		this.savepos := this.r.pos
+		dbgOut("<[" A_ThisFunc "]: moveable=" this.r.moveable, debug)
 		}
 
 	locate() {
@@ -53,22 +74,6 @@ class MiscTestSuite
 		dbgOut("<[" A_ThisFunc "]", debug)
 	}
 
-/*
-	speed() {
-		Global debug
-		dbgOut(">[" A_ThisFunc "]", debug)
-		this.r.speed := 10
-		saveSpeed := this.r.speed
-		Yunit.assert(this.r.speed == 10)
-		this.r.speed := 1
-		Yunit.assert(this.r.speed == 1)
-		this.r.speed := 20
-		Yunit.assert(this.r.speed == 20)
-		this.r.speed := saveSpeed
-		Yunit.assert(this.r.speed == saveSpeed)
-		dbgOut("<[" A_ThisFunc "]", debug)
-	}
-*/
 	monitorID() {
 		Global debug
 		dbgOut(">[" A_ThisFunc "]", debug)
@@ -92,35 +97,71 @@ class MiscTestSuite
 	move() {
 		Global debug
 		dbgOut(">[" A_ThisFunc "]", debug)
-		m := new Mousy(debug)
 		
-		m.x := 100
-		m.y := 100
-		Yunit.assert(m.pos.x == 100)
-		Yunit.assert(m.pos.y == 100)
+		this.r.x := 100
+		this.r.y := 100
+		Yunit.assert(this.r.pos.x == 100)
+		Yunit.assert(this.r.pos.y == 100)
 
-		m.movespeed := 25
-		m.movemode := 1
-		m.x :=1000
-		Yunit.assert(m.pos.x == 1000)
-		Yunit.assert(m.pos.y == 100)
+		this.r.movespeed := 25
+		this.r.movemode := 1
+		this.r.x :=1000
+		Yunit.assert(this.r.pos.x == 1000)
+		Yunit.assert(this.r.pos.y == 100)
 
-		m.movemode := 2
-		m.pos := new Wy.Pointy(500,500)
-		Yunit.assert(m.pos.x == 500)
-		Yunit.assert(m.pos.y == 500)
+		this.r.movemode := 2
+		this.r.pos := new Wy.Pointy(500,500)
+		Yunit.assert(this.r.pos.x == 500)
+		Yunit.assert(this.r.pos.y == 500)
 
-		m.movemode := 2
-		m.pos := new Wy.Pointy(200,200)
-		Yunit.assert(m.pos.x == 200)
-		Yunit.assert(m.pos.y == 200)
+		this.r.movemode := 2
+		this.r.pos := new Wy.Pointy(200,200)
+		Yunit.assert(this.r.pos.x == 200)
+		Yunit.assert(this.r.pos.y == 200)
 
 		dbgOut("<[" A_ThisFunc "]", debug)
 	}
 
+	speed() {
+		Global debug
+		dbgOut(">[" A_ThisFunc "]", debug)
+		this.r.speed := 10
+		saveSpeed := this.r.speed
+		Yunit.assert(this.r.speed == 10)
+		this.r.speed := 1
+		Yunit.assert(this.r.speed == 1)
+		this.r.speed := 20
+		Yunit.assert(this.r.speed == 20)
+		this.r.speed := saveSpeed
+		Yunit.assert(this.r.speed == saveSpeed)
+		dbgOut("<[" A_ThisFunc "]", debug)
+	}
+
+	trail() {
+		Global debug
+		CoordMode("Mouse","Screen")
+		dbgOut(">[" A_ThisFunc "]", debug)
+		MouseMove(1,1,10)
+		savetrail := this.r.trail
+		savespeed := this.r.movespeed
+		this.r.movespeed := 1
+		this.r.trail := 10
+		MouseMove(1000, 1000,10)
+		Yunit.assert(this.r.trail == 10)
+		this.r.trail := 0
+		MouseMove(1,1,10)
+		Yunit.assert(this.r.trail == 0)
+		this.r.trail := savetrail
+		this.r.movespeed := savespeed
+		dbgOut("<[" A_ThisFunc "]", debug)
+	}
+	
 	End() {
+		Global debug
+		dbgOut(">[" A_ThisFunc "]", debug)
 		this.r.pos := this.savepos
 		this.r.moveable := 1
+		dbgOut("<[" A_ThisFunc "]", debug)
 	}
 }
 

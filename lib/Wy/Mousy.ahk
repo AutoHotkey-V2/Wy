@@ -128,6 +128,7 @@ class Mousy {
 	This has to be a value from range [0 (instant) ..100 (slow)]
 	*/
 		get {
+			dbgOut("=[" A_ThisFunc "()] -> " this._movespeed, this.debug)
 			return this._movespeed
 		}
 		set {
@@ -136,6 +137,7 @@ class Mousy {
 			if (value > 100)
 				value := 100
 			this._movespeed := value
+			dbgOut("=[" A_ThisFunc "(value=" value ")] -> " this._movespeed, this.debug)
 			return value
 		}
 	}
@@ -157,6 +159,74 @@ class Mousy {
 			this.__move(value.x, value.y)
 			dbgOut("=[" A_ThisFunc "(" value.toJson() ")]", this.debug)
 			return value
+		}
+	}
+	showLocatorAfterMove[] {
+	/* ---------------------------------------------------------------------------------------
+	Property: showLocatorAfterMove [get/set]
+	Get or Set the flag to show the Mouse-Locator after moving the mouse
+	*/
+		get {
+			dbgOut("=[" A_ThisFunc "()] -> " this._showLocatorAfterMove, this.debug)
+			return this._showLocatorAfterMove
+		}
+		set {
+			this._showLocatorAfterMove := value
+			dbgOut("=[" A_ThisFunc "(value=" value ")] -> " this._showLocatorAfterMove, this.debug)
+			return value
+		}
+	}
+	speed[] {
+	/* ---------------------------------------------------------------------------------------
+	Property: speed [get/set]
+	Get or Set the speed of the mouse on (manual) mouse movement.
+
+	This has to be a value from range [0..20]
+
+	This value can also be set/get via System-Settings of Mouse within your windows-OS
+	*/
+		get {
+			CurrMouseSpeed := 0
+			DllCall("SystemParametersInfo", UInt, SPI.GETMOUSESPEED, UInt, 0, UIntP, CurrMouseSpeed, UInt, 0)
+			dbgOut("=[" A_ThisFunc "()] -> " CurrMouseSpeed, this.debug)
+			return CurrMouseSpeed
+		}
+		set {
+			if (value < 0)
+				value := 0
+			if (value > 20)
+				value := 20
+				
+			DllCall("SystemParametersInfo", UInt, SPI.SETMOUSESPEED, UInt, 0, UInt, value, UInt, 0)
+			dbgOut("=[" A_ThisFunc "(value=" value ")] -> " value, this.debug)
+			return value
+		}
+	}
+	trail[] {
+	/* ---------------------------------------------------------------------------------------
+	Property: trail [get/set]
+	Get or Sets the posibility of drawing a trail on (manual) mouse movement
+
+	Value:
+	flag - True or False
+
+	This value can also be set/get via System-Settings of Mouse within your windows-OS
+	*/
+		get {
+			nTrail := 0
+			DllCall("SystemParametersInfo", UInt, SPI.GETMOUSETRAILS, UInt, 0, UIntP, nTrail, UInt, 0)
+			dbgOut("=[" A_ThisFunc "()] -> " nTrail, this.debug)
+			return nTrail
+		}
+		set {
+			if (value < 0)
+				value := 0
+			;if (value > 1)
+			;	value := 1
+				
+			DllCall("SystemParametersInfo", UInt, SPI.SETMOUSETRAILS, UInt, value, UIntP,, UInt, 0)
+			dbgOut("=[" A_ThisFunc "(value=" value ")] -> " this.trail, this.debug)
+			return this.trail
 		}
 	}
 	version[] {
@@ -320,8 +390,9 @@ class Mousy {
 		else if (mode == 3) {
 			this.__moveRandomBezier(x, y, speed)
 		}
-		if (this.showLocatorAfterMove == 1)
+		if (this.showLocatorAfterMove == 1) {
 			this.locate()
+		}
 		SetMouseDelay(T)
 		dbgOut("<[" A_ThisFunc "(x=" x ",y=" y ",mode=" mode ",speed=" speed ")]", this.debug)	
 	}
